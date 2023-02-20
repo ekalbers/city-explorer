@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-
+const locationKey = process.env.REACT_APP_LOCATION_KEY;
 function App() {
   return (
     <div className="App">
