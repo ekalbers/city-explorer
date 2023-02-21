@@ -3,6 +3,7 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Map from './Map';
 
 const locationKey = process.env.REACT_APP_LOCATION_KEY;
 
@@ -12,21 +13,21 @@ class Main extends React.Component {
         this.state = {
             city: "",
             cityObj: {},
+            map: "",
             show: false
         };
     }
 
     requestCity() {
 
-        let url = 'https://us1.locationiq.com/v1/search?key=' + locationKey + '&q=' + this.state.city + '&format=json'
-        console.log(url);
-        let promise = axios.get(url);
-
+        let urlLocation = 'https://us1.locationiq.com/v1/search?key='
+            + locationKey + '&q='
+            + this.state.city
+            + '&format=json';
+        let promise = axios.get(urlLocation);
         promise
             .then(response => {
                 this.setState({ cityObj: response.data[0] });
-                console.log(response.data[0]);
-                console.log(this.state);
             })
             .catch(error => {
                 console.log('ERROR');
@@ -35,9 +36,8 @@ class Main extends React.Component {
     }
 
     render() {
-        console.log(this.state.city);
         return (
-            <main style={{ margin: "5%" }}>
+            <main>
                 <h2>Find a city!</h2>
                 <div>
                     <Form style={{ width: "24%", marginRight: "38%", marginLeft: "38%" }}>
@@ -47,14 +47,20 @@ class Main extends React.Component {
                             id="city"
                             value={this.state.city}
                             onChange={x => this.setState({ city: x.target.value })} />
-                        <Button onClick={x => this.requestCity()} style={{ margin: "3%" }}>Explore!</Button>
+                        <Button onClick={x => this.requestCity()}
+                            style={{ margin: "3%" }}>Explore!</Button>
                     </Form>
-                    <Card style={{ width: "24%", marginRight: "38%", marginLeft: "38%" }}>
+                    <Card style={{ width: "40%", marginRight: "30%", marginLeft: "30%" }}>
                         <Card.Title>{this.state.cityObj.display_name}</Card.Title>
                         <Card.Body>
                             <p>Latitude: {this.state.cityObj.lat}</p>
                             <p>Longitude: {this.state.cityObj.lon}</p>
                         </Card.Body>
+                        <Map
+                            locationKey={locationKey}
+                            lat={this.state.cityObj.lat}
+                            long={this.state.cityObj.lon}
+                            title={this.state.cityObj.display_name} />
                     </Card>
                 </div>
             </main>
@@ -63,5 +69,3 @@ class Main extends React.Component {
 }
 
 export default Main;
-
-//GET https://us1.locationiq.com/v1/search?key=YOUR_ACCESS_TOKEN&q=SEARCH_STRING&format=json
