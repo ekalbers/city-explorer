@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "react-bootstrap/Card";
+import Modal from "react-bootstrap/Modal";
 
 class Map extends React.Component {
 
@@ -9,16 +9,28 @@ class Map extends React.Component {
             + '?key='
             + this.props.locationKey
             + '&center='
-            + this.props.lat
+            + this.props.cityObj.lat
             + ','
-            + this.props.long
+            + this.props.cityObj.long
             + '&zoom=12';
 
+        console.log(urlMap);
+        console.log(this.props);
+
         return (
-            <Card.Img
-                variant="top"
-                src={urlMap}
-                title={this.props.title} />
+            <Modal show={this.props.show} onHide={this.props.closeModal} style={{ width: "40%", marginRight: "30%", marginLeft: "30%" }}>
+                <Modal.Header>
+                    <Modal.Title>{this.props.cityObj.display_name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p>Latitude: {this.props.cityObj.lat}</p>
+                    <p>Longitude: {this.props.cityObj.lon}</p>
+                </Modal.Body>
+                <img
+                    src={this.props.show ? this.props.getMap() : 'none'}
+                    alt={this.props.cityObj.display_name}
+                    title={this.props.cityObj.display_name} />
+            </Modal>
         );
     }
 }

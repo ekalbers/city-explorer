@@ -39,6 +39,11 @@
 }
 
 html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
 div.App {
   background: black;
 }
@@ -50,9 +55,11 @@ h2 {
 
 main {
   background-image: url("./world-11047.jpg");
+  background-size: cover;
 
 }
 
-label.form-label {
+label.form-label,
+footer {
   color: white;
 }
