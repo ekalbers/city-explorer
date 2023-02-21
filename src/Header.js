@@ -1,6 +1,6 @@
 function Header() {
     return (
-        <header style={{ marginTop: "5%" }}>
+        <header style={{ margin: "2%" }}>
             <h1>City Explorer</h1>
         </header>
     );
