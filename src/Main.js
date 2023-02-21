@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import Map from './Map';
 
 const locationKey = process.env.REACT_APP_LOCATION_KEY;
@@ -11,13 +10,8 @@ class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            city: "Seattle",
-            cityObj: {
-                lat: "47.6038321",
-                lon: "-122.330062",
-                display_name: "Seattle, King County, Washington, USA"
-            },
-            map: "",
+            city: "",
+            cityObj: {},
             show: false
         };
     }
@@ -29,16 +23,35 @@ class Main extends React.Component {
             + this.state.city
             + '&format=json';
         let promise = axios.get(urlLocation);
-        console.log(promise);
         promise
             .then(response => {
-                this.setState({ cityObj: response.data[0] });
-                console.log(response.data[0]);
+                this.setState({ cityObj: response.data[0], show: true });
             })
             .catch(error => {
                 console.log('ERROR');
                 console.error(error);
             })
+    }
+
+    mapUrl = () => {
+        let mapUrl = 'https://maps.locationiq.com/v3/staticmap'
+            + '?key='
+            + locationKey
+            + '&center='
+            + this.state.cityObj.lat
+            + ','
+            + this.state.cityObj.lon
+            + '&zoom=12';
+        console.log(mapUrl);
+        return mapUrl;
+    }
+
+    showModal = () => {
+        this.setState({ show: true });
+    }
+
+    closeModal = () => {
+        this.setState({ show: false });
     }
 
     render() {
@@ -56,18 +69,14 @@ class Main extends React.Component {
                         <Button onClick={x => this.requestCity()}
                             style={{ margin: "3%" }}>Explore!</Button>
                     </Form>
-                    <Card style={{ width: "40%", marginRight: "30%", marginLeft: "30%" }}>
-                        <Card.Title>{this.state.cityObj.display_name}</Card.Title>
-                        <Card.Body>
-                            <p>Latitude: {this.state.cityObj.lat}</p>
-                            <p>Longitude: {this.state.cityObj.lon}</p>
-                        </Card.Body>
+                    <div id="mapCard">
                         <Map
                             locationKey={locationKey}
-                            lat={this.state.cityObj.lat}
-                            long={this.state.cityObj.lon}
-                            title={this.state.cityObj.display_name} />
-                    </Card>
+                            cityObj={this.state.cityObj}
+                            getMap={this.mapUrl}
+                            show={this.state.show}
+                            closeModal={this.closeModal} />
+                    </div>
                 </div>
             </main>
         );
