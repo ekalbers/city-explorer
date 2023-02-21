@@ -11,8 +11,12 @@ class Main extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            city: "",
-            cityObj: {},
+            city: "Seattle",
+            cityObj: {
+                lat: "47.6038321",
+                lon: "-122.330062",
+                display_name: "Seattle, King County, Washington, USA"
+            },
             map: "",
             show: false
         };
@@ -25,9 +29,11 @@ class Main extends React.Component {
             + this.state.city
             + '&format=json';
         let promise = axios.get(urlLocation);
+        console.log(promise);
         promise
             .then(response => {
                 this.setState({ cityObj: response.data[0] });
+                console.log(response.data[0]);
             })
             .catch(error => {
                 console.log('ERROR');

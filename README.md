@@ -8,6 +8,16 @@ Finish time: 9:45 pm
 
 Actual time needed to complete: 5 hours 45 minutes
 
+Name of feature: #3
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 10 pm
+
+Finish time: 11:45 pm
+
+Actual time needed to complete: 1 hours 45 minutes
+
 # City Explorer
 
 **Author**: Ethan Albers
