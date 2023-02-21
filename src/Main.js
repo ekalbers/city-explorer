@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Map from './Map';
 
-const locationKey = process.env.REACT_APP_LOCATION_KEY;
+const REACT_APP_LOCATION_KEY = process.env.REACT_APP_LOCATION_KEY;
 
 class Main extends React.Component {
     constructor(props) {
@@ -19,7 +19,7 @@ class Main extends React.Component {
     requestCity() {
 
         let urlLocation = 'https://us1.locationiq.com/v1/search?key='
-            + locationKey + '&q='
+            + REACT_APP_LOCATION_KEY + '&q='
             + this.state.city
             + '&format=json';
         let promise = axios.get(urlLocation);
@@ -36,7 +36,7 @@ class Main extends React.Component {
     mapUrl = () => {
         let mapUrl = 'https://maps.locationiq.com/v3/staticmap'
             + '?key='
-            + locationKey
+            + REACT_APP_LOCATION_KEY
             + '&center='
             + this.state.cityObj.lat
             + ','
@@ -71,7 +71,7 @@ class Main extends React.Component {
                     </Form>
                     <div id="mapCard">
                         <Map
-                            locationKey={locationKey}
+                            locationKey={REACT_APP_LOCATION_KEY}
                             cityObj={this.state.cityObj}
                             getMap={this.mapUrl}
                             show={this.state.show}

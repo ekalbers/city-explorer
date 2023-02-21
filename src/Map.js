@@ -18,7 +18,7 @@ class Map extends React.Component {
         console.log(this.props);
 
         return (
-            <Modal show={this.props.show} onHide={this.props.closeModal} style={{ width: "40%", marginRight: "30%", marginLeft: "30%" }}>
+            <Modal show={this.props.show} onHide={this.props.closeModal} centered>
                 <Modal.Header>
                     <Modal.Title>{this.props.cityObj.display_name}</Modal.Title>
                 </Modal.Header>
