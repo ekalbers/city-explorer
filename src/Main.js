@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Map from './Map';
 import Cities from './Cities';
+import Weather from './Weather';
 
 console.clear();
 
@@ -20,6 +21,7 @@ class Main extends React.Component {
             show: false,
             showMap: false,
             showAlert: false,
+            showWeather: false,
             error: '',
             errorStatus: ''
         };
@@ -45,19 +47,6 @@ class Main extends React.Component {
                 this.showAlert();
             })
     }
-
-    /* mapUrl = () => {
-        let mapUrl = 'https://maps.locationiq.com/v3/staticmap'
-            + '?key='
-            + REACT_APP_LOCATION_KEY
-            + '&center='
-            + this.state.cityObj.lat
-            + ','
-            + this.state.cityObj.lon
-            + '&zoom=12';
-        console.log(mapUrl);
-        return mapUrl;
-    } */
 
     updateIndex = (index) => {
         this.setState({ index: index });
@@ -86,6 +75,14 @@ class Main extends React.Component {
         this.setState({ showAlert: false })
     }
 
+    showWeather = () => {
+        this.setState({ showWeather: true })
+    }
+
+    closeWeather = () => {
+        this.setState({ showWeather: false })
+    }
+
     render() {
         return (
             <main>
@@ -106,17 +103,23 @@ class Main extends React.Component {
                             cityObj={this.state.cityObj}
                             show={this.state.show}
                             updateIndex={this.updateIndex}
-                            showModal={this.showMap} />
+                            showModal={this.showMap}
+                            showWeather={this.showWeather} />
                         <Map
                             locationKey={REACT_APP_LOCATION_KEY}
                             cityObj={this.state.cityObj[this.state.index]}
-                            show={this.state.showMap}
+                            show={false}
                             closeModal={this.closeModal} />
                         <Modal centered show={this.state.showAlert} onHide={this.closeAlert}>
                             <Modal.Body>
                                 <p>{this.state.errorStatus}: {this.state.error}</p>
                             </Modal.Body>
                         </Modal>
+                        <Weather
+                            city={this.state.city}
+                            cityObj={this.state.cityObj[this.state.index]}
+                            show={this.state.showWeather}
+                            closeWeather={this.closeWeather} />
                     </div>
                 </div>
             </main>
