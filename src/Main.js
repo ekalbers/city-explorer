@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import Map from './Map';
 import Cities from './Cities';
 
@@ -17,7 +18,10 @@ class Main extends React.Component {
             cityObj: [],
             index: 0,
             show: false,
-            showMap: false
+            showMap: false,
+            showAlert: false,
+            error: '',
+            errorStatus: ''
         };
     }
 
@@ -36,10 +40,13 @@ class Main extends React.Component {
             .catch(error => {
                 console.log('ERROR');
                 console.error(error);
+                this.setState({ error: error.response.data.error })
+                this.setState({ errorStatus: error.response.status })
+                this.showAlert();
             })
     }
 
-    mapUrl = () => {
+    /* mapUrl = () => {
         let mapUrl = 'https://maps.locationiq.com/v3/staticmap'
             + '?key='
             + REACT_APP_LOCATION_KEY
@@ -50,7 +57,7 @@ class Main extends React.Component {
             + '&zoom=12';
         console.log(mapUrl);
         return mapUrl;
-    }
+    } */
 
     updateIndex = (index) => {
         this.setState({ index: index });
@@ -69,6 +76,14 @@ class Main extends React.Component {
     closeModal = () => {
         this.setState({ showMap: false });
         console.log('closeModal');
+    }
+
+    showAlert = () => {
+        this.setState({ showAlert: true })
+    }
+
+    closeAlert = () => {
+        this.setState({ showAlert: false })
     }
 
     render() {
@@ -95,9 +110,13 @@ class Main extends React.Component {
                         <Map
                             locationKey={REACT_APP_LOCATION_KEY}
                             cityObj={this.state.cityObj[this.state.index]}
-                            getMap={this.mapUrl}
                             show={this.state.showMap}
                             closeModal={this.closeModal} />
+                        <Modal centered show={this.state.showAlert} onHide={this.closeAlert}>
+                            <Modal.Body>
+                                <p>{this.state.errorStatus}: {this.state.error}</p>
+                            </Modal.Body>
+                        </Modal>
                     </div>
                 </div>
             </main>
