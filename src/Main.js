@@ -3,6 +3,9 @@ import axios from 'axios';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Map from './Map';
+import Cities from './Cities';
+
+console.clear();
 
 const REACT_APP_LOCATION_KEY = process.env.REACT_APP_LOCATION_KEY;
 
@@ -11,8 +14,10 @@ class Main extends React.Component {
         super(props);
         this.state = {
             city: "",
-            cityObj: {},
-            show: false
+            cityObj: [],
+            index: 0,
+            show: false,
+            showMap: false
         };
     }
 
@@ -25,7 +30,8 @@ class Main extends React.Component {
         let promise = axios.get(urlLocation);
         promise
             .then(response => {
-                this.setState({ cityObj: response.data[0], show: true });
+                this.setState({ cityObj: response.data, show: true });
+                console.log(response.data);
             })
             .catch(error => {
                 console.log('ERROR');
@@ -46,12 +52,23 @@ class Main extends React.Component {
         return mapUrl;
     }
 
+    updateIndex = (index) => {
+        this.setState({ index: index });
+        console.log('updateIndex');
+    }
+
     showModal = () => {
         this.setState({ show: true });
     }
 
+    showMap = () => {
+        this.setState({ showMap: true });
+        console.log('showMap');
+    }
+
     closeModal = () => {
-        this.setState({ show: false });
+        this.setState({ showMap: false });
+        console.log('closeModal');
     }
 
     render() {
@@ -70,11 +87,16 @@ class Main extends React.Component {
                             style={{ margin: "3%" }}>Explore!</Button>
                     </Form>
                     <div id="mapCard">
+                        <Cities
+                            cityObj={this.state.cityObj}
+                            show={this.state.show}
+                            updateIndex={this.updateIndex}
+                            showModal={this.showMap} />
                         <Map
                             locationKey={REACT_APP_LOCATION_KEY}
-                            cityObj={this.state.cityObj}
+                            cityObj={this.state.cityObj[this.state.index]}
                             getMap={this.mapUrl}
-                            show={this.state.show}
+                            show={this.state.showMap}
                             closeModal={this.closeModal} />
                     </div>
                 </div>
