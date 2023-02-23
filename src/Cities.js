@@ -22,14 +22,25 @@ class Cities extends React.Component {
         });
     }
 
-    render() {
+    openWeather = (place) => {
+        let x = 0;
+        this.props.cityObj.forEach(item => {
+            if (item.place_id === place) {
+                this.props.updateIndex(x);
+                this.props.showWeather();
+            }
+            x++;
+        });
+    }
+
+    render = () => {
         if (this.props.show) {
             return (
                 <Container fluid="sm">
                     <Row>
                         {this.props.cityObj.map(city => {
                             return (
-                                <Col key={city.display_name}>
+                                <Col key={city.place_id}>
                                     <Card style={{ width: '15rem' }}>
                                         <Card.Header>{city.display_name}</Card.Header>
                                         <Card.Body>
@@ -37,7 +48,11 @@ class Cities extends React.Component {
                                             <p>Longitude: {city.lon}</p>
                                         </Card.Body>
                                         <Button
-                                            onClick={x => this.handleClick(x.target.value)} value={city.place_id}>Map</Button>
+                                            onClick={x => this.handleClick(x.target.value)}
+                                            value={city.place_id}>Map</Button>
+                                        <Button
+                                            onClick={x => this.openWeather(x.target.value)}
+                                            value={city.place_id}>Weather</Button>
                                     </Card>
                                 </Col>
                             );
