@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 
+const SERVER = process.env.SERVER;
+
 class Weather extends React.Component {
   constructor(props) {
     super(props);
@@ -16,7 +18,7 @@ class Weather extends React.Component {
   }
 
   getData() {
-    let url = 'http://localhost:3001/weather?lat='
+    let url = SERVER + 'weather?lat='
       + this.props.cityObj.lat
       + '&lon='
       + this.props.cityObj.lon;
