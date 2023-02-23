@@ -16,9 +16,7 @@ class Weather extends React.Component {
   }
 
   getData() {
-    let url = 'http://localhost:3001/weather?city='
-      + this.props.city
-      + '&lat='
+    let url = 'http://localhost:3001/weather?lat='
       + this.props.cityObj.lat
       + '&lon='
       + this.props.cityObj.lon;
