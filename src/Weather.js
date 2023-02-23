@@ -1,10 +1,43 @@
 import React from "react";
+import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 
 class Weather extends React.Component {
   constructor(props) {
     super(props);
     console.log(props);
+    this.state = {
+      weatherData: []
+    }
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  getData() {
+    let url = 'http://localhost:3001/weather?city='
+      + this.props.city
+      + '&lat='
+      + this.props.cityObj.lat
+      + '&lon='
+      + this.props.cityObj.lon;
+
+    console.log(url);
+
+    let promise = axios.get(url);
+    promise
+      .then((response) => {
+        console.log(response.data);
+        this.setState({ weatherData: response.data });
+      })
+      .catch(error => {
+        console.log('ERROR');
+        console.log(error);
+        this.props.updateError(error.response.data, error.response.status);
+        this.props.closeWeather();
+        this.props.showAlert();
+      })
   }
 
   render = () => {
@@ -13,7 +46,7 @@ class Weather extends React.Component {
       return (
         <Modal show={this.props.show} onHide={this.props.closeWeather} centered>
           <Modal.Body>
-            {this.props.weatherData.map(item => {
+            {this.state.weatherData.map(item => {
               console.log(item);
               return (
                 <div key={item.date}>

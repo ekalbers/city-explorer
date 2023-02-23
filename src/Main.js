@@ -50,7 +50,7 @@ class Main extends React.Component {
       })
   }
 
-  getWeatherData = () => {
+  /* getWeatherData = () => {
 
     let url = 'http://localhost:3001/weather?city='
       + this.state.city
@@ -70,13 +70,14 @@ class Main extends React.Component {
       .catch(error => {
         console.log('ERROR');
         console.log(error);
-        this.updateError(error.response.data, error.response.status);
+        this.updateError(error.response.error, error.response.status);
         this.showAlert();
       })
+  } */
+
+  updateIndex = (index) => {
+    this.setState({ index: index });
   }
-
-  updateIndex = (index) => this.setState({ index: index });
-
 
   showModal = () => {
     this.setState({ show: true });
@@ -106,7 +107,7 @@ class Main extends React.Component {
   }
 
   showWeather = () => {
-    this.getWeatherData();
+    this.setState({ showWeather: true });
   }
 
   closeWeather = () => {
@@ -114,7 +115,13 @@ class Main extends React.Component {
   }
 
   render = () => {
-
+    let weather = this.state.showWeather ? <Weather
+      city={this.state.city}
+      cityObj={this.state.cityObj[this.state.index]}
+      show={this.state.showWeather}
+      closeWeather={this.closeWeather}
+      updateError={this.updateError}
+      showAlert={this.showAlert} /> : <p></p>;
     return (
       <main>
         <h2>Find a city!</h2>
@@ -152,10 +159,7 @@ class Main extends React.Component {
             </Modal>
           </div>
           <div>
-            <Weather
-              weatherData={this.state.weatherData}
-              show={this.state.showWeather}
-              closeWeather={this.closeWeather} />
+            {weather}
           </div>
         </div>
       </main >
