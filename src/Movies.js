@@ -17,13 +17,13 @@ class Weather extends React.Component {
         this.getData();
     }
 
-    getData() {
+    getData = async () => {
         let url = REACT_APP_SERVER + 'movies?city='
             + this.props.city;
 
         console.log(url);
 
-        let promise = axios.get(url);
+        let promise = await axios.get(url);
         promise
             .then((response) => {
                 this.setState({ movieData: response.data });
