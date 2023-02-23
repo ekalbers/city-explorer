@@ -14,18 +14,19 @@ class Weather extends React.Component {
     }
 
     componentDidMount() {
-        this.getData();
+        this.getMovieData();
     }
 
-    getData = async () => {
+    getMovieData() {
         let url = REACT_APP_SERVER + 'movies?city='
             + this.props.city;
 
         console.log(url);
 
-        let promise = await axios.get(url);
+        let promise = axios.get(url);
         promise
             .then((response) => {
+                console.log(response.data)
                 this.setState({ movieData: response.data });
             })
             .catch(error => {
@@ -38,12 +39,11 @@ class Weather extends React.Component {
     }
 
     render = () => {
-        if (this.props.show) {
-
-            return (
-                <Modal show={this.props.show} onHide={this.props.closeMovies} centered>
-                    <Modal.Body>
-                        {this.state.movieData.map(item => {
+        return (
+            <Modal show={this.props.show} onHide={this.props.closeMovies} centered>
+                <Modal.Body>
+                    {
+                        this.state.movieData.map(item => {
                             return (
                                 <div key={item.key}>
                                     <h2>{item.title}</h2>
@@ -51,12 +51,12 @@ class Weather extends React.Component {
                                 </div>
                             );
                         })
-                        }
-                    </Modal.Body>
-                </Modal>
-            );
-        }
+                    }
+                </Modal.Body>
+            </Modal>
+        );
     }
 }
+
 
 export default Weather;
