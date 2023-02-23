@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
 
-const SERVER = process.env.SERVER;
+const REACT_APP_SERVER = process.env.REACT_APP_SERVER;
 
 class Weather extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class Weather extends React.Component {
   }
 
   getData() {
-    let url = SERVER + 'weather?lat='
+    let url = REACT_APP_SERVER + 'weather?lat='
       + this.props.cityObj.lat
       + '&lon='
       + this.props.cityObj.lon;
