@@ -6,6 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import Map from './Map';
 import Cities from './Cities';
 import Weather from './Weather';
+import Movies from './Movies';
 
 console.clear();
 
@@ -23,6 +24,7 @@ class Main extends React.Component {
       showMap: false,
       showAlert: false,
       showWeather: false,
+      showMovies: false,
       error: '',
       errorStatus: ''
     };
@@ -44,36 +46,11 @@ class Main extends React.Component {
       .catch(error => {
         console.log('ERROR');
         console.error(error);
-        this.setState({ error: error.response.error });
+        this.setState({ error: error.response.data.error });
         this.setState({ errorStatus: error.response.status });
         this.showAlert();
       })
   }
-
-  /* getWeatherData = () => {
-
-    let url = 'http://localhost:3001/weather?city='
-      + this.state.city
-      + '&lat='
-      + this.state.cityObj[this.state.index].lat
-      + '&lon='
-      + this.state.cityObj[this.state.index].lon;
-
-    console.log(url);
-
-    let promise = axios.get(url);
-    promise
-      .then((response) => {
-        console.log(response.data);
-        this.setState = ({ weatherData: response.data, showWeather: true });
-      })
-      .catch(error => {
-        console.log('ERROR');
-        console.log(error);
-        this.updateError(error.response.error, error.response.status);
-        this.showAlert();
-      })
-  } */
 
   updateIndex = (index) => {
     this.setState({ index: index });
@@ -114,14 +91,31 @@ class Main extends React.Component {
     this.setState({ showWeather: false });
   }
 
+  showMovies = () => {
+    this.setState({ showMovies: true });
+  }
+
+  closeMovies = () => {
+    this.setState({ showMovies: false });
+  }
+
   render = () => {
+
     let weather = this.state.showWeather ? <Weather
       city={this.state.city}
       cityObj={this.state.cityObj[this.state.index]}
       show={this.state.showWeather}
       closeWeather={this.closeWeather}
       updateError={this.updateError}
-      showAlert={this.showAlert} /> : <p></p>;
+      showAlert={this.showAlert} /> : <></>;
+
+    let movies = this.state.showMovies ? <Movies
+      city={this.state.city}
+      show={this.state.showMovies}
+      closeMovies={this.closeMovies}
+      updateError={this.updateError}
+      showAlert={this.showAlert} /> : <></>;
+
     return (
       <main>
         <h2>Find a city!</h2>
@@ -133,8 +127,10 @@ class Main extends React.Component {
               id="city"
               value={this.state.city}
               onChange={x => this.setState({ city: x.target.value })} />
-            <Button onClick={x => this.requestCity()}
+            <Button onClick={() => this.requestCity()}
               style={{ margin: "3%" }}>Explore!</Button>
+            <Button onClick={() => this.showMovies()}
+              style={{ margin: "3%" }}>Movies</Button>
           </Form>
           <div>
             <Cities
@@ -160,6 +156,9 @@ class Main extends React.Component {
           </div>
           <div>
             {weather}
+          </div>
+          <div>
+            {movies}
           </div>
         </div>
       </main >
