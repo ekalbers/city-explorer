@@ -65,8 +65,7 @@ class Main extends React.Component {
     promise
       .then((response) => {
         console.log(response.data);
-        this.setState = ({ weatherData: response.data });
-        this.setState({ showWeather: true });
+        this.setState = ({ weatherData: response.data, showWeather: true });
       })
       .catch(error => {
         console.log('ERROR');
@@ -76,10 +75,8 @@ class Main extends React.Component {
       })
   }
 
-  updateIndex = (index) => {
-    this.setState({ index: index });
-    console.log('updateIndex');
-  }
+  updateIndex = (index) => this.setState({ index: index });
+
 
   showModal = () => {
     this.setState({ show: true });
@@ -148,16 +145,18 @@ class Main extends React.Component {
               closeModal={this.closeModal} />
           </div>
           <div>
+            <Modal centered show={this.state.showAlert} onHide={this.closeAlert}>
+              <Modal.Body>
+                <p>{this.state.errorStatus}: {this.state.error}</p>
+              </Modal.Body>
+            </Modal>
+          </div>
+          <div>
             <Weather
               weatherData={this.state.weatherData}
               show={this.state.showWeather}
               closeWeather={this.closeWeather} />
           </div>
-          <Modal centered show={this.state.showAlert} onHide={this.closeAlert}>
-            <Modal.Body>
-              <p>{this.state.errorStatus}: {this.state.error}</p>
-            </Modal.Body>
-          </Modal>
         </div>
       </main >
     );
