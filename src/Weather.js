@@ -1,63 +1,33 @@
 import React from "react";
-import axios from 'axios';
 import Modal from "react-bootstrap/Modal";
 
 class Weather extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log(props);
+  constructor(props) {
+    super(props);
+    console.log(props);
+  }
 
-    }
+  render = () => {
+    if (this.props.show) {
 
-    getData() {
-        let url = 'http://localhost:3001/weather?city='
-            + this.props.city
-            + '&lat='
-            + this.props.cityObj.lat
-            + '&lon='
-            + this.props.cityObj.lon;
-
-        console.log(url);
-
-        let array = [];
-
-        let promise = axios.get(url);
-        promise
-            .then(response => {
-                console.log(response.data);
-                return response.data;
+      return (
+        <Modal show={this.props.show} onHide={this.props.closeWeather} centered>
+          <Modal.Body>
+            {this.props.weatherData.map(item => {
+              console.log(item);
+              return (
+                <div key={item.date}>
+                  <p>Date: {item.date}</p>
+                  <p>Description: {item.description}</p><br></br>
+                </div>
+              );
             })
-            .catch(error => {
-                console.log('ERROR');
-                console.log(error);
-            })
+            }
+          </Modal.Body>
+        </Modal>
+      );
     }
-
-    render() {
-        if (this.props.show) {
-
-            let array = this.getData();
-            console.log(array);
-
-            return (
-                <Modal show={this.props.show} onHide={this.props.closeModal} centered>
-                    <Modal.Body>
-                        {array.map(item => {
-                            return (
-                                <div>
-                                    <p>Date: {item.date}</p>
-                                    <p>Description: {item.description}</p><br></br>
-                                </div>
-                            );
-                        })
-                        }
-                    </Modal.Body>
-                </Modal>
-            );
-        }
-    }
-
-
+  }
 }
 
 export default Weather;

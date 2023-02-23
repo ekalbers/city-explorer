@@ -33,7 +33,7 @@ class Cities extends React.Component {
         });
     }
 
-    render() {
+    render = () => {
         if (this.props.show) {
             return (
                 <Container fluid="sm">
@@ -51,7 +51,7 @@ class Cities extends React.Component {
                                             onClick={x => this.handleClick(x.target.value)}
                                             value={city.place_id}>Map</Button>
                                         <Button
-                                            onClick={x => this.openWeather(city.place_id)}
+                                            onClick={x => this.openWeather(x.target.value)}
                                             value={city.place_id}>Weather</Button>
                                     </Card>
                                 </Col>
