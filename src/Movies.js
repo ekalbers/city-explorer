@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 
 const REACT_APP_SERVER = process.env.REACT_APP_SERVER;
 
-class Weather extends React.Component {
+class Movies extends React.Component {
     constructor(props) {
         super(props);
         console.log(props);
@@ -39,6 +39,7 @@ class Weather extends React.Component {
     }
 
     render = () => {
+        // console.log(this.state.movieData[0].title);
         return (
             <Modal show={this.props.show} onHide={this.props.closeMovies} centered>
                 <Modal.Body>
@@ -46,8 +47,8 @@ class Weather extends React.Component {
                         this.state.movieData.map(item => {
                             return (
                                 <div key={item.key}>
-                                    <h2>{item.title}</h2>
-                                    <p>{item.overview}</p><hr></hr>
+                                    <h2>{item.Title}</h2>
+                                    <p>{item.Overview}</p><hr></hr>
                                 </div>
                             );
                         })
@@ -59,4 +60,4 @@ class Weather extends React.Component {
 }
 
 
-export default Weather;
+export default Movies;
