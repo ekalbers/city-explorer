@@ -1,3 +1,5 @@
+![lab 08](./lab%2008.png)
+
 Name of feature: #2
 
 Estimate of time needed to complete: 2 hours
