@@ -1,36 +1,24 @@
-![lab 08](./lab%2008.png)
+![lab 09](./lab%2009.png)
+
+Name of feature: #1
+
+Estimate of time needed to complete: 30 minutes
+
+Start time: 10 pm
+
+Finish time: 10:40 pm
+
+Actual time needed to complete: 40 minutes
 
 Name of feature: #2
 
-Estimate of time needed to complete: 2 hours
+Estimate of time needed to complete: 30 minutes
 
-Start time: 4 pm
+Start time: 11:05 pm
 
-Finish time: 9:45 pm
+Finish time: 11:30 pm
 
-Actual time needed to complete: 5 hours 45 minutes
-
-Name of feature: #3
-
-Estimate of time needed to complete: 2 hours
-
-Start time: 10 pm
-
-Finish time: 11:45 pm
-
-Actual time needed to complete: 1 hours 45 minutes
-
-Name of feature: #3
-
-Estimate of time needed to complete: 2 hours
-
-Start time: 10 pm
-
-Finish time: 11:45 pm
-
-Actual time needed to complete: 1 hours 45 minutes
-
-Rest of Lab 06 took me until around 9:30 pm the following day.
+Actual time needed to complete: 25 minutes
 
 # City Explorer
 
