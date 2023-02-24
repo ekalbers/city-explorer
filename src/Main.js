@@ -11,6 +11,7 @@ import Movies from './Movies';
 console.clear();
 
 const REACT_APP_LOCATION_KEY = process.env.REACT_APP_LOCATION_KEY;
+// const REACT_APP_SERVER = process.env.REACT_APP_SERVER;
 
 class Main extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class Main extends React.Component {
       city: '',
       cityObj: [],
       weatherData: [],
+      movieData: [],
       index: 0,
       show: false,
       showMap: false,
@@ -51,6 +53,26 @@ class Main extends React.Component {
         this.showAlert();
       })
   }
+
+  /* getMovieData = async () => {
+    let url = REACT_APP_SERVER + 'movies?city='
+      + this.state.city;
+
+    console.log(url);
+
+    let promise = await axios.get(url);
+    promise
+      .then((response) => {
+        this.setState({ movieData: response.data });
+      })
+      .catch(error => {
+        console.log('ERROR');
+        console.log(error);
+        this.props.updateError(error.response.data, error.response.status);
+        this.props.closeMovies();
+        this.props.showAlert();
+      })
+  } */
 
   updateIndex = (index) => {
     this.setState({ index: index });
