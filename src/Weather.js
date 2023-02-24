@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
+import WeatherDay from "./WeatherDay";
 
 const REACT_APP_SERVER = process.env.REACT_APP_SERVER;
 
@@ -49,10 +50,7 @@ class Weather extends React.Component {
             {this.state.weatherData.map(item => {
               console.log(item);
               return (
-                <div key={item.date}>
-                  <p>Date: {item.date}</p>
-                  <p>Description: {item.description}</p><br></br>
-                </div>
+                <WeatherDay key={item.date} date={item.date} descriptiong={item.description} />
               );
             })
             }
