@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Modal from "react-bootstrap/Modal";
+import Movie from "./Movie";
 
 const REACT_APP_SERVER = process.env.REACT_APP_SERVER;
 
@@ -46,10 +47,7 @@ class Movies extends React.Component {
                     {
                         this.state.movieData.map(item => {
                             return (
-                                <div key={item.key}>
-                                    <h2>{item.Title}</h2>
-                                    <p>{item.Overview}</p><hr></hr>
-                                </div>
+                                <Movie key={item.key} title={item.Title} overview={item.Overview} />
                             );
                         })
                     }
